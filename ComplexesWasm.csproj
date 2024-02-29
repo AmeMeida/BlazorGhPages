@@ -5,11 +5,8 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <RunAOTCompilation>true</RunAOTCompilation>
-    <WasmNativeDebugSymbols>true</WasmNativeDebugSymbols>
-    <WasmNativeStrip>false</WasmNativeStrip>
     <BlazorWebAssemblyEnableLinking>true</BlazorWebAssemblyEnableLinking>
     <PublishTrimmed>true</PublishTrimmed>
-    <TrimMode>full</TrimMode>
   </PropertyGroup>
 
   <ItemGroup>
