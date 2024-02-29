@@ -19,13 +19,17 @@ concurrency:
 
 jobs:
   build:
-    name: Build and Deploy website
+    name: Build
     runs-on: ubuntu-latest
     steps:
       - name: Setup .NET Core
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: 8.0.x
+          cache: true
+
+      - name: Restore cache for NuGet
+        run: dotnet restore --locked-mode
 
       - name: Install wasm-tools
         run: dotnet workload install wasm-tools
