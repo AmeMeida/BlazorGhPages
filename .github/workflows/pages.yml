@@ -9,6 +9,9 @@ permissions:
   pages: write
   id-token: write
 
+env:
+  PUBLISH_DIR: bin/Release/net8.0/publish/wwwroot
+
 # Allow one concurrent deployment
 concurrency:
   group: "pages"
@@ -31,15 +34,27 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Build website
-        run: dotnet publish --configuration Release --output build
+        run: dotnet publish -c Release
+
+      - name: Rewrite base href
+        uses: SteveSandersonMS/ghaction-rewrite-base-href@v1
+        with:
+          html_path: ${{ env.PUBLISH_DIR }}/index.html
+          base_href: /ComplexesWasm/
 
       - name: Configure GitHub Pages
-        uses: actions/configure-pages@v3.0.4
+        uses: actions/configure-pages@v4.0.0
 
       - name: Upload GitHub Pages artifact
-        uses: actions/upload-pages-artifact@v1.0.7
+        uses: actions/upload-pages-artifact@v3.0.1
         with:
-          path: build/wwwroot
+          path: ${{ env.PUBLISH_DIR }}
 
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    name: Deploy
+    steps:
       - name: Deploy to GitHub Pages
-        uses: actions/deploy-pages@v1.2.4
+        id: deployment
+        uses: actions/deploy-pages@v4
