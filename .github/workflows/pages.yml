@@ -44,7 +44,7 @@ jobs:
         uses: SteveSandersonMS/ghaction-rewrite-base-href@v1
         with:
           html_path: ${{ env.PUBLISH_DIR }}/index.html
-          base_href: /ComplexesWasm/
+          base_href: /BlazorGhPages/
 
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v4.0.0
